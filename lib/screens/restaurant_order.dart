@@ -13,6 +13,7 @@ class RestaurantOrder extends StatefulWidget {
   _RestaurantOrderState createState() => _RestaurantOrderState();
 
   final myAddressController = TextEditingController();
+  final myPhoneNumberController = TextEditingController();
 }
 
 class _RestaurantOrderState extends State<RestaurantOrder> {
@@ -71,10 +72,12 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
 //                print(order.length);
                 print(order);
                 print(totalAmount);
-
+//                 ||
+//
                 if (listFoodItem.isEmpty ||
-                    listFoodItem.first.myController.text == '' ||
-                    widget.myAddressController.text.isEmpty) {
+                    widget.myPhoneNumberController.text == '' ||
+                    widget.myAddressController.text.isEmpty ||
+                    listFoodItem.first.myController.text == '') {
                   return showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -103,6 +106,7 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                         totalAmountOfOrder: totalAmount,
                         order: order,
                         address: widget.myAddressController.text,
+                        phoneNumber: widget.myPhoneNumberController.text,
                         restaurantName: widget.name,
                       ),
                     ),
@@ -124,39 +128,132 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: Text(
-                    'Type in your address',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic,
+                  child: Container(
+                    width: size.width * 0.8,
+                    height: 50,
+                    child: TextFormField(
+                      controller: widget.myAddressController,
+                      decoration: InputDecoration(
+                        labelText: "Your Address",
+                        fillColor: Colors.white,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.red, width: 2.0),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.red)),
+                      ),
+                      style: TextStyle(
+                        fontSize: 17.0,
+                      ),
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return 'Address required';
+                        }
+                        return null;
+                      },
+                      onSaved: (String value) {
+                        widget.myAddressController.text = value;
+                      },
                     ),
                   ),
                 ),
-                SizedBox(height: 10),
-                Row(
-                  children: [
-                    Icon(Icons.location_on, color: Colors.red),
-                    Container(
-                      width: size.width * 0.8,
-                      child: TextFormField(
-                        controller: widget.myAddressController,
-                        style: TextStyle(
-//
-                          fontSize: 17.0,
+                SizedBox(height: 20),
+                Center(
+                  child: Container(
+                    width: size.width * 0.8,
+                    height: 50,
+                    child: TextFormField(
+                      controller: widget.myPhoneNumberController,
+                      decoration: InputDecoration(
+                        labelText: "Phone Number",
+                        fillColor: Colors.white,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.red, width: 2.0),
                         ),
-                        validator: (String value) {
-                          if (value.isEmpty) {
-                            return 'Address required';
-                          }
-                          return null;
-                        },
-                        onSaved: (String value) {
-                          widget.myAddressController.text = value;
-                        },
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.red)),
                       ),
+                      style: TextStyle(
+                        fontSize: 17.0,
+                      ),
+                      validator: (String value) {
+                        if (value.isEmpty) {
+                          return 'Address required';
+                        }
+                        return null;
+                      },
+                      onSaved: (String value) {
+                        widget.myPhoneNumberController.text = value;
+                      },
                     ),
-                  ],
+                  ),
                 ),
+
+//                SizedBox(height: 5),
+//                Row(
+//                  children: [
+//                    Icon(Icons.location_on, color: Colors.red),
+//                    Container(
+//                      width: size.width * 0.8,
+//                      height: 40,
+//                      child: TextFormField(
+//                        controller: widget.myAddressController,
+//                        style: TextStyle(
+////
+//                          fontSize: 17.0,
+//                        ),
+//                        validator: (String value) {
+//                          if (value.isEmpty) {
+//                            return 'Address required';
+//                          }
+//                          return null;
+//                        },
+//                        onSaved: (String value) {
+//                          widget.myAddressController.text = value;
+//                        },
+//                      ),
+//                    ),
+//                  ],
+//                ),
+//                SizedBox(height: 10),
+//                Center(
+//                  child: Text(
+//                    'Phone Number?',
+//                    style: TextStyle(
+//                      fontSize: 20,
+//                      fontStyle: FontStyle.italic,
+//                    ),
+//                  ),
+////                ),
+//                Row(
+//                  children: [
+//                    Icon(Icons.location_on, color: Colors.red),
+//                    Container(
+//                      width: size.width * 0.8,
+//                      height: 40,
+//                      child: TextFormField(
+//                        controller: widget.myAddressController,
+//                        style: TextStyle(
+////
+//                          fontSize: 17.0,
+//                        ),
+//                        validator: (String value) {
+//                          if (value.isEmpty) {
+//                            return 'Address required';
+//                          }
+//                          return null;
+//                        },
+//                        onSaved: (String value) {
+//                          widget.myAddressController.text = value;
+//                        },
+//                      ),
+//                    ),
+//                  ],
+//                ),
                 SizedBox(height: 30),
 
                 Center(

@@ -1,14 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/screens/orders/orderList.dart';
 
 class OrderDetail extends StatelessWidget {
   OrderDetail(
-      {this.shopName, this.subTotal, this.order, this.address, this.date});
+      {this.shopName,
+      this.subTotal,
+      this.order,
+      this.address,
+      this.date,
+      this.phoneNumber});
 
   final String shopName;
   final int subTotal;
   final List order;
   final String address;
+  final String phoneNumber;
   final DateTime date;
 
   @override
@@ -64,11 +71,23 @@ class OrderDetail extends StatelessWidget {
                 width: size.width * 0.9,
                 child: Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Address: \n$address',
-                    style: TextStyle(
-                      fontSize: 17,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Address: \n$address',
+                        style: TextStyle(
+                          fontSize: 17,
+                        ),
+                      ),
+                      Text(
+                        'Phone Number: \n$phoneNumber',
+                        style: TextStyle(
+                          fontSize: 17,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -180,6 +199,16 @@ class OrderDetail extends StatelessWidget {
                         print('${order[i][j]}');
                       }
                     }
+
+//                    Navigator.pushNamed(context, '/order-list');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => OrderList(
+                          order: order,
+                        ),
+                      ),
+                    );
                   },
                 ),
               ),
