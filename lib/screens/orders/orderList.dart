@@ -10,12 +10,12 @@ class OrderList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget fullList() {
-      List<Widget> jjj = [];
+      List<Widget> foodList = [];
       for (var i = 0; i < order.length; i++) {
         for (var j = 0; j < order[i].length; j++) {
 //          print('${order[i][j]}');
 
-          jjj.add(
+          foodList.add(
             Container(
                 width: 250,
                 child: Column(
@@ -35,10 +35,8 @@ class OrderList extends StatelessWidget {
         }
       }
       print(order);
-      print(jjj);
-      return Column(
-//          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: jjj);
+      print(foodList);
+      return Column(children: foodList);
     }
 
     var media = MediaQuery.of(context).size;
