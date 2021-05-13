@@ -3,7 +3,7 @@ import 'package:food_delivery/screens/chooseType.dart';
 import 'package:food_delivery/screens/login_singup/sign_in.dart';
 import 'package:food_delivery/screens/login_singup/signup.dart';
 import 'package:food_delivery/screens/orders/orderList.dart';
-import 'package:food_delivery/screens/orders/x.dart';
+import 'package:food_delivery/screens/orders/orders.dart';
 //import 'package:food_delivery/screens/orders/orders.dart';
 import 'package:food_delivery/screens/splashs/splash1.dart';
 import 'package:food_delivery/screens/splashs/splash2.dart';
