@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/screens/orders/orders.dart';
+import 'package:food_delivery/providers/orders.dart';
+import 'package:food_delivery/screens/orders/ordersPage.dart';
+import 'package:food_delivery/widgets/app_drawer.dart';
+import 'package:provider/provider.dart';
 
 class RestaurantOrder extends StatefulWidget {
   RestaurantOrder({
@@ -18,7 +21,6 @@ class RestaurantOrder extends StatefulWidget {
 
 class _RestaurantOrderState extends State<RestaurantOrder> {
   List<FoodItemWidget> listFoodItem = [];
-  String selectedValue = "Mavise";
 
   addFoodItem() {
     listFoodItem.add(FoodItemWidget());
@@ -33,20 +35,25 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
 
   @override
   Widget build(BuildContext context) {
+    //
     var size = MediaQuery.of(context).size;
+    String address = widget.myAddressController.text;
+    String phoneNumber = widget.myPhoneNumberController.text;
+    String restaurantName = widget.name;
+    //
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        title: Text(widget.name),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        title: Text(restaurantName),
+//        leading: IconButton(
+//          icon: Icon(
+//            Icons.arrow_back,
+//            color: Colors.white,
+//          ),
+//          onPressed: () {
+//            Navigator.pop(context);
+//          },
+//        ),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 20),
@@ -56,11 +63,11 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                 size: 26.0,
               ),
               onTap: () {
-//                print(listFoodItem.length);
                 List order = [];
                 int totalAmount = 0;
 
-                print(listFoodItem[0]._selectedValue2);
+//                print(listFoodItem[0]._selectedValue2);
+
                 for (var i = 0; i < listFoodItem.length; i++) {
                   totalAmount += int.parse(listFoodItem[i]._selectedValue2);
                   order.add([
@@ -70,8 +77,8 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                 }
 
 //                print(order.length);
-                print(order);
-                print(totalAmount);
+//                print(order);
+//                print(totalAmount);
 //                 ||
 //
                 if (listFoodItem.isEmpty ||
@@ -96,30 +103,43 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                         );
                       });
                 } else {
-                  final DateTime date = DateTime.now();
+//                  final DateTime date = DateTime.now();
 
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => OrdersPageX(
-                        date: date,
-                        totalAmountOfOrder: totalAmount,
-                        order: order,
-                        address: widget.myAddressController.text,
-                        phoneNumber: widget.myPhoneNumberController.text,
-                        restaurantName: widget.name,
-                      ),
-                    ),
+//                  // BEFORE USING PROVIDER:
+//                  Navigator.push(
+//                    context,
+//                    MaterialPageRoute(
+//                      builder: (context) => OrdersPageX(
+//                        date: date,
+//                        totalAmountOfOrder: totalAmount,
+//                        order: order,
+//                        address: widget.myAddressController.text,
+//                        phoneNumber: widget.myPhoneNumberController.text,
+//                        restaurantName: widget.name,
+//                      ),
+//                    ),
+//                  );
+
+                  Provider.of<Orders>(context, listen: false).addOrder(
+                    totalAmount,
+                    address,
+                    order,
+                    phoneNumber,
+                    restaurantName,
                   );
+                  print(Provider.of<Orders>(context, listen: false)
+                      .orders
+                      .length);
+                  Navigator.pushNamed(context, '/orders-screen');
                 }
               },
             ),
           )
         ],
       ),
+      drawer: AppDrawer(),
       body: SingleChildScrollView(
         child: Container(
-//          color: Colors.brown,
           width: size.width,
           height: size.height,
           child: Padding(
@@ -137,9 +157,9 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                         labelText: "Your Address",
                         fillColor: Colors.white,
                         focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.red, width: 2.0),
-                        ),
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                BorderSide(color: Colors.red, width: 2.0)),
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.red)),
@@ -154,7 +174,7 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                         return null;
                       },
                       onSaved: (String value) {
-                        widget.myAddressController.text = value;
+                        address = value;
                       },
                     ),
                   ),
@@ -187,101 +207,36 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                         return null;
                       },
                       onSaved: (String value) {
-                        widget.myPhoneNumberController.text = value;
+                        phoneNumber = value;
                       },
                     ),
                   ),
                 ),
 
-//                SizedBox(height: 5),
-//                Row(
-//                  children: [
-//                    Icon(Icons.location_on, color: Colors.red),
-//                    Container(
-//                      width: size.width * 0.8,
-//                      height: 40,
-//                      child: TextFormField(
-//                        controller: widget.myAddressController,
-//                        style: TextStyle(
-////
-//                          fontSize: 17.0,
-//                        ),
-//                        validator: (String value) {
-//                          if (value.isEmpty) {
-//                            return 'Address required';
-//                          }
-//                          return null;
-//                        },
-//                        onSaved: (String value) {
-//                          widget.myAddressController.text = value;
-//                        },
-//                      ),
-//                    ),
-//                  ],
-//                ),
-//                SizedBox(height: 10),
-//                Center(
-//                  child: Text(
-//                    'Phone Number?',
-//                    style: TextStyle(
-//                      fontSize: 20,
-//                      fontStyle: FontStyle.italic,
-//                    ),
-//                  ),
-////                ),
-//                Row(
-//                  children: [
-//                    Icon(Icons.location_on, color: Colors.red),
-//                    Container(
-//                      width: size.width * 0.8,
-//                      height: 40,
-//                      child: TextFormField(
-//                        controller: widget.myAddressController,
-//                        style: TextStyle(
-////
-//                          fontSize: 17.0,
-//                        ),
-//                        validator: (String value) {
-//                          if (value.isEmpty) {
-//                            return 'Address required';
-//                          }
-//                          return null;
-//                        },
-//                        onSaved: (String value) {
-//                          widget.myAddressController.text = value;
-//                        },
-//                      ),
-//                    ),
-//                  ],
-//                ),
                 SizedBox(height: 30),
 
                 Center(
-                  child: Text(
-                    'What do you need?',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic,
-                    ),
-                  ),
-                ),
+                    child: Text('What do you need?',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontStyle: FontStyle.italic,
+                        ))),
                 SizedBox(height: 20),
                 Center(
-                  child: Container(
-                    height: size.height * 0.55,
-                    width: size.height * 0.43,
+                    child: Container(
+                        height: size.height * 0.55,
+                        width: size.height * 0.43,
 //                  color: Colors.teal,
-                    child: Column(
-                      children: [
-                        Flexible(
-                          child: ListView.builder(
-                              itemCount: listFoodItem.length,
-                              itemBuilder: (_, index) => listFoodItem[index]),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+                        child: Column(
+                          children: [
+                            Flexible(
+                              child: ListView.builder(
+                                  itemCount: listFoodItem.length,
+                                  itemBuilder: (_, index) =>
+                                      listFoodItem[index]),
+                            )
+                          ],
+                        ))),
 //                Spacer(),
                 SizedBox(height: 10),
                 Center(
@@ -403,43 +358,3 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
     );
   }
 }
-
-//Dropdown///////
-//Container(
-//margin: EdgeInsets.symmetric(horizontal: 120),
-//padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-//height: 60,
-//width: 200,
-//decoration: BoxDecoration(
-//color: Colors.white,
-//borderRadius: BorderRadius.circular(10),
-//border: Border.all(
-//color: Color(0xFFE5E5E5),
-//),
-//),
-//child: Row(
-//children: [
-//Icon(Icons.store),
-//SizedBox(width: 20),
-//Expanded(
-//child: DropdownButton(
-//underline: SizedBox(),
-//isExpanded: true,
-////                      icon: Icons.store,
-//value: selectedValue,
-//items: ['Mavise', 'Shop 10', 'Blessed', 'Shop 7']
-//.map<DropdownMenuItem<String>>((String value) {
-//return DropdownMenuItem<String>(
-//value: value,
-//child: Text(value),
-//);
-//}).toList(),
-//onChanged: (value) {
-//setState(() {
-//selectedValue = value;
-//});
-//},
-//),
-//),
-//],
-//)),

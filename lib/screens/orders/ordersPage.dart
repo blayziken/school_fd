@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/providers/orders.dart';
 import 'package:food_delivery/screens/orders/orderDetail.dart';
+import 'package:provider/provider.dart';
 
 class OrdersPageX extends StatelessWidget {
   static const routeName = '/ordersX-page';
@@ -24,9 +26,9 @@ class OrdersPageX extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    final orders = Provider.of<Orders>(context);
 
     return Scaffold(
-//      backgroundColor: Colors.green,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Text('Order Details'),

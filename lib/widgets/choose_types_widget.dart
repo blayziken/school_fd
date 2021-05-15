@@ -65,7 +65,8 @@ class ChooseTypeWidget extends StatelessWidget {
                     typeName,
                     style: TextStyle(
                       fontSize: 22,
-                      color: Colors.green[700],
+//                      color: Colors.green[700],
+                      color: Colors.blue[800],
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1,
                     ),
