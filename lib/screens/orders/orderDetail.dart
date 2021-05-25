@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/screens/orders/orderList.dart';
+import 'package:intl/intl.dart';
 
 class OrderDetail extends StatelessWidget {
   OrderDetail(
@@ -59,7 +60,7 @@ class OrderDetail extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Order Date & Time: $date',
+                'Order Date & Time: ${DateFormat('dd/MM/yyyy hh:mm').format(date)}',
                 style: TextStyle(
                   fontSize: 17,
                 ),
