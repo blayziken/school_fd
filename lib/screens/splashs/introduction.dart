@@ -14,23 +14,13 @@ class IntroductionSlide extends StatelessWidget {
             PageViewModel(
               title: "Welcome !",
               body: "Order online and get your food ",
-//              image: Padding(
-//                padding: EdgeInsets.only(top: 100.0),
-//                child: Center(
-//                  child: Container(
-//                    height: 900,
-//                    width: 300,
-//                    color: Colors.blue,
-//                  ),
-//                ),
-//              ),
               decoration: PageDecoration(
                 titleTextStyle: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w900,
                     fontSize: 60),
                 bodyTextStyle: TextStyle(color: Colors.black87, fontSize: 20.0),
-                pageColor: Colors.red,
+                pageColor: Colors.orange,
                 titlePadding: EdgeInsets.only(top: media.height / 2.5),
               ),
             ),
@@ -136,7 +126,10 @@ class IntroductionSlide extends StatelessWidget {
               ),
             )
           ],
-          onDone: () {},
+          onDone: () {
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/choose-type', (route) => false);
+          },
           showSkipButton: true,
           showNextButton: false,
           showDoneButton: true,

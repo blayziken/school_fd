@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery/screens/category/choose_restaurant.dart';
 import 'package:food_delivery/widgets/choose_types_widget.dart';
 
 class ChooseType extends StatelessWidget {
@@ -14,7 +13,6 @@ class ChooseType extends StatelessWidget {
         child: Container(
           height: media.height,
           width: media.width,
-//        color: Colors.brown,
           child: Column(
             children: [
               Container(
@@ -39,8 +37,16 @@ class ChooseType extends StatelessWidget {
               ),
               Expanded(
                 child: Column(
-//                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+//                    for (final type in types)
+//                      ChooseTypeWidget(
+//                          typeName: type.name,
+//                          typeDescription: type.description,
+//                          typeImage: type.imagePath,
+//                          onTap: (context) {
+//                            Navigator.pushNamed(context, type.routePath);
+//                          }),
+
                     ChooseTypeWidget(
                       typeName: 'Restaurants',
                       typeDescription:
@@ -96,3 +102,25 @@ class ChooseType extends StatelessWidget {
     );
   }
 }
+
+//class Type {
+//  final String name;
+//  final String description;
+//  final String imagePath;
+//  final String routePath;
+//
+//  Type(this.name, this.description, this.imagePath, this.routePath);
+//}
+//
+//final types = [
+//  Type('Restaurants', 'All the food you love, from restaurants near you',
+//      'images/image.png', '/choose-restaurant'),
+//  Type('Supermarket', 'Fresh groceries and everyday essentials',
+//      'images/image.png', '/choose-supermarket'),
+//  Type('Stationery', 'Gifts, electronics, airtime & more', 'images/image.png',
+//      '/stationery-order'),
+//  Type('Pharmarcy', 'Medication and personal care', 'images/image.png',
+//      '/pharmacy-order'),
+//  Type('Party', 'Alcoholic drinks and more to get your party started',
+//      'images/image.png', ''),
+//];

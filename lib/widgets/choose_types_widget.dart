@@ -55,7 +55,6 @@ class ChooseTypeWidget extends StatelessWidget {
               width: 15,
             ),
             Container(
-//                          color: Colors.yellow,
               height: 70,
               width: 223,
               child: Column(
@@ -65,7 +64,6 @@ class ChooseTypeWidget extends StatelessWidget {
                     typeName,
                     style: TextStyle(
                       fontSize: 22,
-//                      color: Colors.green[700],
                       color: Colors.blue[800],
                       fontWeight: FontWeight.w700,
                       letterSpacing: 1,
@@ -88,17 +86,18 @@ class ChooseTypeWidget extends StatelessWidget {
               width: 15,
             ),
             InkWell(
-                child: Center(
-                  child: Text(
-                    '›',
-                    style: TextStyle(
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 40,
-                    ),
+              child: Center(
+                child: Text(
+                  '›',
+                  style: TextStyle(
+                    color: Colors.black45,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 40,
                   ),
                 ),
-                onTap: onTap),
+              ),
+              onTap: onTap,
+            ),
           ],
         ),
       ),

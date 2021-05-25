@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/providers/orders.dart';
-import 'package:food_delivery/screens/orders/ordersPage.dart';
 import 'package:food_delivery/widgets/MaterialDialog/dialog.dart';
-import 'package:food_delivery/widgets/MaterialDialog/materialDialog_icon_buttons.dart';
-import 'package:food_delivery/widgets/MaterialDialog/material_dialogs.dart';
 import 'package:food_delivery/widgets/app_drawer.dart';
 import 'package:food_delivery/widgets/failedShowDialog.dart';
 import 'package:provider/provider.dart';
@@ -61,8 +58,6 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                 List order = [];
                 int totalAmount = 0;
 
-//                print(listFoodItem[0]._selectedValue2);
-
                 for (var i = 0; i < listFoodItem.length; i++) {
                   totalAmount += int.parse(listFoodItem[i]._selectedValue2);
                   order.add([
@@ -71,11 +66,6 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                   ]);
                 }
 
-//                print(order.length);
-//                print(order);
-//                print(totalAmount);
-//                 ||
-//
                 if (listFoodItem.isEmpty ||
                     widget.myPhoneNumberController.text == '' ||
                     widget.myAddressController.text.isEmpty ||
