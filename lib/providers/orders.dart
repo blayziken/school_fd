@@ -6,7 +6,7 @@ class OrderItem {
   final List order;
   final String address;
   final String phoneNumber;
-  final String restaurantName;
+  final String shopName;
   final DateTime dateTime;
 
   OrderItem({
@@ -14,7 +14,7 @@ class OrderItem {
     @required this.amount,
     @required this.phoneNumber,
     @required this.order,
-    @required this.restaurantName,
+    @required this.shopName,
     @required this.address,
     @required this.dateTime,
   });
@@ -28,7 +28,7 @@ class Orders with ChangeNotifier {
   }
 
   void addOrder(int amount, String orderAddress, List foodOrder,
-      String phoneNumber, String restaurantName) {
+      String phoneNumber, String shopName) {
     _orders.insert(
       0,
       OrderItem(
@@ -37,7 +37,7 @@ class Orders with ChangeNotifier {
         address: orderAddress,
         order: foodOrder,
         phoneNumber: phoneNumber,
-        restaurantName: restaurantName,
+        shopName: shopName,
         dateTime: DateTime.now(),
       ),
     );
