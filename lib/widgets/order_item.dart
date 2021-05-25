@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/providers/orders.dart' as ord;
+import 'package:food_delivery/screens/orders/orderDetail.dart';
 import 'package:intl/intl.dart';
 
 class OrderItem extends StatelessWidget {
@@ -60,6 +61,18 @@ class OrderItem extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OrderDetail(
+                              subTotal: order.amount,
+                              phoneNumber: order.phoneNumber,
+                              address: order.address,
+                              order: order.order,
+                              shopName: order.shopName,
+                              date: order.dateTime,
+                            ),
+                          ));
 //                      Navigator.push(
 //                        context,
 //                        MaterialPageRoute(
