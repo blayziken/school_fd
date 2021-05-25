@@ -1,29 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/providers/orders.dart';
-import 'package:food_delivery/screens/orders/ordersPage.dart';
+import 'package:food_delivery/widgets/MaterialDialog/dialog.dart';
 import 'package:food_delivery/widgets/app_drawer.dart';
+import 'package:food_delivery/widgets/failedShowDialog.dart';
 import 'package:provider/provider.dart';
 
-class RestaurantOrder extends StatefulWidget {
-  RestaurantOrder({
-    Key key,
-    @required this.name,
-  }) : super(key: key);
+class PharmacyOrder extends StatefulWidget {
+  static const routeName = '/pharmacy-order';
 
   String name;
 
   @override
-  _RestaurantOrderState createState() => _RestaurantOrderState();
+  _PharmacyOrderState createState() => _PharmacyOrderState();
 
   final myAddressController = TextEditingController();
   final myPhoneNumberController = TextEditingController();
 }
 
-class _RestaurantOrderState extends State<RestaurantOrder> {
-  List<FoodItemWidget> listFoodItem = [];
+class _PharmacyOrderState extends State<PharmacyOrder> {
+  List<ItemsWidget> listBuyItem = [];
 
-  addFoodItem() {
-    listFoodItem.add(FoodItemWidget());
+  addItem() {
+    listBuyItem.add(ItemsWidget());
     setState(() {});
   }
 
@@ -39,21 +37,12 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
     var size = MediaQuery.of(context).size;
     String address = widget.myAddressController.text;
     String phoneNumber = widget.myPhoneNumberController.text;
-    String restaurantName = widget.name;
+    String shopName = '';
     //
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        title: Text(restaurantName),
-//        leading: IconButton(
-//          icon: Icon(
-//            Icons.arrow_back,
-//            color: Colors.white,
-//          ),
-//          onPressed: () {
-//            Navigator.pop(context);
-//          },
-//        ),
+        title: Text('Pharmacy'),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 20),
@@ -66,71 +55,29 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                 List order = [];
                 int totalAmount = 0;
 
-//                print(listFoodItem[0]._selectedValue2);
-
-                for (var i = 0; i < listFoodItem.length; i++) {
-                  totalAmount += int.parse(listFoodItem[i]._selectedValue2);
+                for (var i = 0; i < listBuyItem.length; i++) {
+                  totalAmount += int.parse(listBuyItem[i]._selectedValue2);
                   order.add([
-                    listFoodItem[i].myController.text,
-                    listFoodItem[i]._selectedValue2
+                    listBuyItem[i].myController.text,
+                    listBuyItem[i]._selectedValue2
                   ]);
                 }
 
-//                print(order.length);
-//                print(order);
-//                print(totalAmount);
-//                 ||
-//
-                if (listFoodItem.isEmpty ||
+                if (listBuyItem.isEmpty ||
                     widget.myPhoneNumberController.text == '' ||
                     widget.myAddressController.text.isEmpty ||
-                    listFoodItem.first.myController.text == '') {
-                  return showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Oops'),
-                          content:
-                              Text('There is an error, please check again🤨'),
-                          actions: <Widget>[
-                            TextButton(
-                              child: Text('Back'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                            )
-                          ],
-                        );
-                      });
+                    listBuyItem.first.myController.text == '') {
+                  return failedShowDialog(context);
                 } else {
-//                  final DateTime date = DateTime.now();
-
-//                  // BEFORE USING PROVIDER:
-//                  Navigator.push(
-//                    context,
-//                    MaterialPageRoute(
-//                      builder: (context) => OrdersPageX(
-//                        date: date,
-//                        totalAmountOfOrder: totalAmount,
-//                        order: order,
-//                        address: widget.myAddressController.text,
-//                        phoneNumber: widget.myPhoneNumberController.text,
-//                        restaurantName: widget.name,
-//                      ),
-//                    ),
-//                  );
-
                   Provider.of<Orders>(context, listen: false).addOrder(
                     totalAmount,
                     address,
                     order,
                     phoneNumber,
-                    restaurantName,
+                    shopName,
                   );
-                  print(Provider.of<Orders>(context, listen: false)
-                      .orders
-                      .length);
-                  Navigator.pushNamed(context, '/orders-screen');
+
+                  return materialDialog(context, shopName);
                 }
               },
             ),
@@ -231,9 +178,9 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                           children: [
                             Flexible(
                               child: ListView.builder(
-                                  itemCount: listFoodItem.length,
+                                  itemCount: listBuyItem.length,
                                   itemBuilder: (_, index) =>
-                                      listFoodItem[index]),
+                                      listBuyItem[index]),
                             )
                           ],
                         ))),
@@ -249,13 +196,13 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
                             size: 40,
                           ),
                           onPressed: () {
-                            addFoodItem();
+                            addItem();
                           }),
                       SizedBox(width: 10),
                     ],
                   ),
                 ),
-//            SizedBox(height: 20),
+//
                 Spacer(),
               ],
             ),
@@ -267,16 +214,16 @@ class _RestaurantOrderState extends State<RestaurantOrder> {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
-class FoodItemWidget extends StatefulWidget {
+class ItemsWidget extends StatefulWidget {
   @override
-  _FoodItemWidgetState createState() => _FoodItemWidgetState();
+  _ItemsWidgetState createState() => _ItemsWidgetState();
 
   String _itemName;
   String _selectedValue2 = "50";
   final myController = TextEditingController();
 }
 
-class _FoodItemWidgetState extends State<FoodItemWidget> {
+class _ItemsWidgetState extends State<ItemsWidget> {
   @override
   void dispose() {
     widget.myController.dispose();
@@ -289,15 +236,8 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
       return TextFormField(
         controller: widget.myController,
         style: TextStyle(
-//
           fontSize: 17.0,
         ),
-//        decoration: InputDecoration(
-//          enabledBorder: OutlineInputBorder(
-////            borderRadius: BorderRadius.circular(0),
-//            borderSide: BorderSide(color: Colors.black),
-//          ),
-//        ),
         validator: (String value) {
           if (value.isEmpty) {
             return 'Name required';
@@ -312,18 +252,12 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
     }
 
     return Container(
-//      margin: EdgeInsets.only(left: 50.0, right: 60.0, bottom: 15),
       margin: EdgeInsets.only(bottom: 20),
-
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(height: 50, width: 250, child: _buildName()),
           Container(
-//            margin: EdgeInsets.symmetric(horizontal: 15),
-//            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-
-//            color: Colors.teal,
             width: 60,
             height: 50,
             child: Center(
@@ -333,10 +267,18 @@ class _FoodItemWidgetState extends State<FoodItemWidget> {
                   Expanded(
                     child: DropdownButton(
                       underline: SizedBox(),
-//                      iconSize: 14,
                       value: widget._selectedValue2,
-                      items: ['50', '100', '150', '200', '250', '300', '350']
-                          .map<DropdownMenuItem<String>>((String value) {
+                      items: [
+                        '50',
+                        '100',
+                        '150',
+                        '200',
+                        '250',
+                        '300',
+                        '350',
+                        '400',
+                        '450'
+                      ].map<DropdownMenuItem<String>>((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(value),
