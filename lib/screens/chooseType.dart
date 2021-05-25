@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/screens/category/choose_restaurant.dart';
-import 'package:food_delivery/screens/restaurant_order.dart';
-import 'package:food_delivery/screens/set_location.dart';
 import 'package:food_delivery/widgets/choose_types_widget.dart';
 
 class ChooseType extends StatelessWidget {
@@ -49,15 +47,7 @@ class ChooseType extends StatelessWidget {
                           'All the food you love, from restaurants near you',
                       typeImage: 'images/image.png',
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChooseRestaurant(
-
-//                              name: typeName,
-                                ),
-                          ),
-                        );
+                        Navigator.pushNamed(context, '/choose-restaurant');
                       },
                     ),
                     SizedBox(height: 25),
@@ -66,18 +56,27 @@ class ChooseType extends StatelessWidget {
                       typeDescription:
                           'Fresh groceries and everyday essentials',
                       typeImage: 'images/image.png',
+                      onTap: () {
+                        Navigator.pushNamed(context, '/choose-supermarket');
+                      },
                     ),
                     SizedBox(height: 25),
                     ChooseTypeWidget(
-                      typeName: 'Shopping',
+                      typeName: 'Stationery',
                       typeDescription: 'Gifts, electronics, airtime & more',
                       typeImage: 'images/image.png',
+                      onTap: () {
+                        Navigator.pushNamed(context, '/stationery-order');
+                      },
                     ),
                     SizedBox(height: 25),
                     ChooseTypeWidget(
                       typeName: 'Pharmarcy',
                       typeDescription: 'Medication and personal care',
                       typeImage: 'images/image.png',
+                      onTap: () {
+                        Navigator.pushNamed(context, '/pharmacy-order');
+                      },
                     ),
                     SizedBox(height: 25),
                     ChooseTypeWidget(

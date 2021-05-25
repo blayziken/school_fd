@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Administrator/AndroidStudioProjects/food_delivery/lib/chooseTypeOrderPages/restaurant_order.dart';
+import 'package:food_delivery/chooseTypeOrderPages/superMarket_order.dart';
 
-class ChooseRestaurant extends StatelessWidget {
-  static const routeName = '/choose-restaurant';
+import '../../chooseTypeOrderPages/restaurant_order.dart';
+
+class ChooseSupermarket extends StatelessWidget {
+  static const routeName = '/choose-supermarket';
 
   @override
   Widget build(BuildContext context) {
     var media = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
-        title: Text('Choose Restaurant'),
+        backgroundColor: Colors.blueAccent,
+        title: Text('Choose Supermarket'),
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -24,9 +27,7 @@ class ChooseRestaurant extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-//          color: Colors.red,
             width: media.width,
-//            height: media.height,
             child: Padding(
               padding: EdgeInsets.all(20.0),
               child: Column(
@@ -66,54 +67,43 @@ class ChooseRestaurant extends StatelessWidget {
 
                   SizedBox(height: 35),
                   //LIST
-                  Column(
-                    children: [
-                      ChooseRestaurantWidget(
-                        restaurantName: 'Mavise',
-                        restaurantLocation: 'Red Blocks',
-                      ),
-                      SizedBox(height: 20),
-                      ChooseRestaurantWidget(
-                        restaurantName: 'Blessed',
-                        restaurantLocation: 'Red Blocks',
-                      ),
-                      SizedBox(height: 20),
-                      ChooseRestaurantWidget(
-                        restaurantName: 'Shop 10',
-                        restaurantLocation: 'Red Blocks',
-                      ),
-                      SizedBox(height: 20),
-                      ChooseRestaurantWidget(
-                        restaurantName: 'Calabar Kitchen',
-                        restaurantLocation: 'Red Blocks',
-                      ),
-                      SizedBox(height: 20),
-                      ChooseRestaurantWidget(
-                        restaurantName: 'Shop 6',
-                        restaurantLocation: 'Red Blocks',
-                      ),
-                      SizedBox(height: 20),
-                      ChooseRestaurantWidget(
-                        restaurantName: 'Name 1',
-                        restaurantLocation: 'Red Blocks',
-                      ),
-                      SizedBox(height: 20),
-                      ChooseRestaurantWidget(
-                        restaurantName: 'Name 2',
-                        restaurantLocation: 'Red Blocks',
-                      ),
-                      SizedBox(height: 20),
-                      ChooseRestaurantWidget(
-                        restaurantName: 'Name 3',
-                        restaurantLocation: 'Red Blocks',
-                      ),
-                      SizedBox(height: 20),
-                      ChooseRestaurantWidget(
-                        restaurantName: 'Name 4',
-                        restaurantLocation: 'Red Blocks',
-                      ),
-                    ],
-                  )
+                  Column(children: [
+                    ChooseSuperMarketWidget(
+                      superMarketName: 'YemYem',
+                      superMarketLocation: 'New Hall',
+                    ),
+                    SizedBox(height: 20),
+                    ChooseSuperMarketWidget(
+                      superMarketName: 'Name 2',
+                      superMarketLocation: 'New Hall',
+                    ),
+                    SizedBox(height: 20),
+                    ChooseSuperMarketWidget(
+                      superMarketName: 'Name 3',
+                      superMarketLocation: 'New Hall',
+                    ),
+                    SizedBox(height: 20),
+                    ChooseSuperMarketWidget(
+                      superMarketName: 'Name 4',
+                      superMarketLocation: 'Jaja Complex',
+                    ),
+                    SizedBox(height: 20),
+                    ChooseSuperMarketWidget(
+                      superMarketName: 'Name 5',
+                      superMarketLocation: 'Jaja Complex',
+                    ),
+                    SizedBox(height: 20),
+                    ChooseSuperMarketWidget(
+                      superMarketName: 'Name 6',
+                      superMarketLocation: 'Law',
+                    ),
+                    SizedBox(height: 20),
+                    ChooseSuperMarketWidget(
+                      superMarketName: 'Name 7',
+                      superMarketLocation: 'Law',
+                    ),
+                    SizedBox(height: 20),
+                  ]),
                 ],
               ),
             ),
@@ -124,15 +114,15 @@ class ChooseRestaurant extends StatelessWidget {
   }
 }
 
-class ChooseRestaurantWidget extends StatelessWidget {
-  const ChooseRestaurantWidget({
+class ChooseSuperMarketWidget extends StatelessWidget {
+  const ChooseSuperMarketWidget({
     Key key,
-    this.restaurantName,
-    this.restaurantLocation,
+    this.superMarketName,
+    this.superMarketLocation,
   }) : super(key: key);
 
-  final String restaurantLocation;
-  final String restaurantName;
+  final String superMarketLocation;
+  final String superMarketName;
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +154,7 @@ class ChooseRestaurantWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  restaurantName,
+                  superMarketName,
                   style: TextStyle(
                     fontSize: 20,
                     color: Colors.green[700],
@@ -176,7 +166,7 @@ class ChooseRestaurantWidget extends StatelessWidget {
                   height: 3,
                 ),
                 Text(
-                  'Location: $restaurantLocation',
+                  'Location: $superMarketLocation',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.black,
@@ -191,7 +181,7 @@ class ChooseRestaurantWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => RestaurantOrder(name: restaurantName),
+            builder: (context) => SuperMarketOrder(name: superMarketName),
           ),
         );
       },
